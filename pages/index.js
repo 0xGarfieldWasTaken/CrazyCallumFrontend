@@ -1,61 +1,19 @@
-import { EthSWRConfig } from 'ether-swr'
-import { useWeb3React } from '@web3-react/core'
+import { Center, Flex, Heading, Text } from '@chakra-ui/react'
 
-import { injected } from '../connectors/injectedConnector'
-
-import { CrazyMint } from '../components/crazyMint'
-import { EthBalance } from '../components/ethBalance'
-import { CrazyURI } from '../components/crazyURI'
-
-import { ABIs} from '../utils'
-import { Button, Center, Flex, Heading, Spacer, Text } from '@chakra-ui/react'
-import { FreeMintUsed } from '../components/freeMintAvailable'
+import Navbar from '../components/navbar'
 
 
 export default function Home() {
-  const { chainId, account, library, activate, active } = useWeb3React()
-
-  const onClick = () => {
-    activate(injected)
-  }
-
   return (
     <div>
-      <Flex flexDirection="row" minHeight="4rem" backgroundColor="#3D518C">
-          <Center paddingLeft="1rem">
-            <Heading textColor="#091540">Crazy Callums!</Heading>
-          </Center>
-          <Spacer />
-          <Center paddingRight="1rem">
-            {active && chainId && (
-              <Heading size="m">
-                <EthSWRConfig
-                  value={{ web3Provider: library, ABIs: new Map(ABIs), refreshInterval: 30000 }}
-                >
-                  <Flex flexDirection="column">
-                    <FreeMintUsed />
-                    <Center>
-                      <EthBalance></EthBalance>
-                    </Center>
-                  </Flex>
-                </EthSWRConfig>
-              </Heading>
-              )}
-          </Center>
-          <Center paddingRight="2rem">
-            {active ? <Text>Account: {account}</Text> : <Button onClick={onClick} backgroundColor="#1B2CC1" >Connect To Wallet</Button>}
-          </Center>
-      </Flex>
+      <Navbar page={"home"}/>
       <Flex flexDirection="column" padding="3rem" backgroundColor="#7692FF" minHeight="calc(100vh - 4rem)">
-        {active && chainId && (
-          <EthSWRConfig
-            value={{ web3Provider: library, ABIs: new Map(ABIs), refreshInterval: 30000 }}
-          >
-            <CrazyURI></CrazyURI>
-            <Spacer />
-            <CrazyMint></CrazyMint>
-          </EthSWRConfig>
-        )}
+        <Center>
+          <Flex flexDir="column">
+            <Heading>Welcome to Crazy Callums!</Heading>
+            <Text>This is Crazy Callums the cool new NFT Project. <br />Here you will be able to mint Crazy Callums and get your own Callum on the blockchain!</Text>
+          </Flex>
+        </Center>
       </Flex>
     </div>
   )
